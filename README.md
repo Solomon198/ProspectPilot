@@ -2,6 +2,13 @@
 
 A sophisticated Node.js API for AI-powered sales sequence generation, built with Express, TypeScript, Prisma ORM, and OpenAI integration.
 
+## 📖 Quick Links
+
+- **[🚀 How to Run](HOW_TO_RUN.md)** - Complete setup and installation guide
+- **[🏗️ Architecture Overview](#-architecture-overview)** - Technical design decisions
+- **[🗄️ Database Schema](#-database-schema-design)** - Database models and relationships
+- **[🤖 AI Integration](#-ai-integration-patterns)** - OpenAI and PDL integration patterns
+
 ## 🏗️ Architecture Overview
 
 This API generates personalized sales sequences by:
@@ -307,40 +314,31 @@ logger.info("Sequence generation completed", {
 
 ## 🔮 Future Improvements
 
-### 1. Enhanced AI Capabilities
+### 1. Database Enhancements
 
-- **Multi-modal prompts**: Include company logos, prospect photos
-- **A/B testing**: Generate multiple sequence variants
-- **Learning loop**: Use sequence performance to improve prompts
-- **Custom fine-tuning**: Train models on successful sequences
+- **Indexing**: Add database indexes on frequently queried fields (linkedinUrl, jobTitle, companyName)
+- **Connection pooling**: Implement connection pooling for better database performance
+- **Data archiving**: Archive old prospect data to reduce database size
+- **Backup strategy**: Automated daily backups with point-in-time recovery
 
-### 2. Database Optimizations
+### 2. AI Code Improvements
 
-- **Read replicas**: Separate read/write operations
-- **Caching layer**: Redis for frequently accessed prospects
-- **Partitioning**: Partition by date for large datasets
-- **Materialized views**: Pre-computed analytics
+- **Response caching**: Cache AI responses to reduce API costs and improve speed for profile lookup
+- **Model selection**: Automatically choose the best AI model based on request complexity
 
-### 3. API Enhancements
+### 3. Code Quality
 
-- **Webhook support**: Real-time sequence delivery
-- **Bulk operations**: Process multiple prospects
-- **Rate limiting**: Per-user and per-organization limits
-- **API versioning**: Backward compatibility
+- **Unit tests**: Add comprehensive test coverage for all controllers and utilities
+- **API documentation**: Generate OpenAPI/Swagger documentation
+- **Error logging**: Improve error tracking with better categorization
+- **Performance monitoring**: Add response time tracking and alerts
 
-### 4. Monitoring & Observability
+### 4. Simple Optimizations
 
-- **Distributed tracing**: Track requests across services
-- **Metrics dashboard**: Real-time performance monitoring
-- **Alerting**: Proactive error detection
-- **Cost optimization**: AI usage analytics
-
-### 5. Security & Compliance
-
-- **Data encryption**: At-rest and in-transit
-- **GDPR compliance**: Data retention policies
-- **Audit logging**: Complete request/response tracking
-- **API authentication**: JWT or OAuth integration
+- **Request validation**: Add rate limiting to prevent API abuse
+- **Data compression**: Compress large JSON responses
+- **Health checks**: Add database and external API health monitoring
+- **Graceful degradation**: Handle external API failures more gracefully with maybe a second fallback
 
 ## 🛠️ Technical Stack
 
