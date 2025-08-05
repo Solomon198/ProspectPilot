@@ -58,10 +58,7 @@ export class ProspectAnalyzer {
     );
 
     // Identify potential objections
-    const objections = this.identifyObjections(
-      person.job_title || "",
-      person.job_company_industry || ""
-    );
+    const objections = this.identifyObjections(person.job_title || "");
 
     return {
       name:
@@ -302,10 +299,7 @@ export class ProspectAnalyzer {
     return "low";
   }
 
-  private static identifyObjections(
-    jobTitle: string,
-    industry: string
-  ): string[] {
+  private static identifyObjections(jobTitle: string): string[] {
     const objections: string[] = [];
     const title = jobTitle.toLowerCase();
 
