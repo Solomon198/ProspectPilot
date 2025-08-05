@@ -38,6 +38,7 @@ export const openaiWithRetry = {
         const response = (await openai.chat.completions.create({
           messages,
           model,
+          temperature: 0.7,
         })) as OpenAI.Chat.ChatCompletion;
         logger.debug("OpenAI API call successful", {
           model,

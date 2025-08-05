@@ -39,6 +39,9 @@ export const env = cleanEnv(process.env, {
     desc: "OpenAI main model",
     default: "gpt-4o",
   }),
+  PDL_API_KEY: str({
+    desc: "PDL API key",
+  }),
 });
 
 export type EnvConfig = typeof env;
