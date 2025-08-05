@@ -7,6 +7,7 @@ import { logger } from "../utils/logger";
 import {
   SequenceRequestContext,
   TOVConfigMapping,
+  TOVConfig,
 } from "../types/prompt.analysis";
 import { PrismaClientSingleton } from "../utils/db";
 import { storeSequenceGeneration } from "../utils/databaseOperations";
@@ -42,7 +43,7 @@ export const generateSequence = async (
     // Step 2: Create request context
     const context: SequenceRequestContext = {
       prospect_url: input.prospect_url,
-      tov_config: input.tov_config,
+      tov_config: input.tov_config as TOVConfig,
       company_context: input.company_context,
       sequence_length: input.sequence_length,
     };
