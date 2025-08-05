@@ -4,7 +4,7 @@
   "description": "A Node.js API with Prisma ORM, TypeScript, and comprehensive validation",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.prod.json",
+    "build": "tsc -p tsconfig.render.json",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "db:generate": "prisma generate",
@@ -28,6 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^5.7.1",
+    "@types/node": "^20.19.9",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -47,7 +48,6 @@
     "@types/express": "^4.17.23",
     "@types/jest": "^29.5.14",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^20.19.9",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "eslint": "^8.55.0",
