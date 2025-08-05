@@ -4,7 +4,7 @@
   "description": "A Node.js API with Prisma ORM, TypeScript, and comprehensive validation",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.prod.json",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "db:generate": "prisma generate",
