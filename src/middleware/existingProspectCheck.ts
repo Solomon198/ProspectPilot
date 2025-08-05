@@ -2,10 +2,12 @@ import { Request, Response, NextFunction } from "express";
 import { PrismaClientSingleton } from "../utils/db";
 import { logger } from "../utils/logger";
 import { SequenceGenerationResponse } from "../types/sequenceResponse";
+import { GenerateSequenceInput } from "../schemas/generateSequenceSchema";
 
 const prisma = PrismaClientSingleton.getInstance();
 
 interface RequestWithProspect extends Request {
+  body: GenerateSequenceInput;
   existingProspect?: any;
   existingMessage?: any;
 }
