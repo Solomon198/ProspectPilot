@@ -9,7 +9,7 @@ const router = Router();
 
 // Generate sequence route
 router.post(
-  "/generate",
+  "/",
   expressAsyncHandler(validate(generateSequenceSchema)),
   expressAsyncHandler(checkExistingProspect),
   expressAsyncHandler(generateSequence)
