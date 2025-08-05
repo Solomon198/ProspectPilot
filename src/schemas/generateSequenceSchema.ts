@@ -9,9 +9,9 @@ export const generateSequenceSchema = z.object({
       return linkedinPattern.test(url);
     }, "URL must be a valid LinkedIn profile URL with a username (e.g., https://linkedin.com/in/username)"),
   tov_config: z.object({
-    formality: z.number().min(0).max(1),
-    warmth: z.number().min(0).max(1),
-    directness: z.number().min(0).max(1),
+    formality: z.coerce.number().min(0).max(1),
+    warmth: z.coerce.number().min(0).max(1),
+    directness: z.coerce.number().min(0).max(1),
   }),
   company_context: z.string().min(1, "Company context is required"),
   sequence_length: z.number().int().positive().min(1).default(3),

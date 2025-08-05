@@ -102,7 +102,6 @@ export const errorHandler = (
   const errorResponse: any = {
     success: false,
     message,
-    ...(process.env["NODE_ENV"] === "development" && { stack: error.stack }),
     ...(details && { details }),
   };
 

@@ -5,6 +5,7 @@ import { pdlWithRetry } from "../lib/pdl";
 import { PromptGenerator } from "../lib/promptAnalysis";
 import { logger } from "../utils/logger";
 import { SequenceRequestContext } from "../types/prompt.analysis";
+import { SequenceGenerationResponse } from "../types/sequenceResponse";
 
 // Generate sequence using OpenAI with PDL profile enrichment
 export const generateSequence = async (
@@ -86,6 +87,7 @@ export const generateSequence = async (
     res.status(200).json({
       success: true,
       message: "Sequence generated successfully",
+      cached: false,
       data: {
         generatedMessages: parsedResponse.generatedMessages || [],
         aiThinkingProcess: parsedResponse.aiThinkingProcess || {},
@@ -102,7 +104,7 @@ export const generateSequence = async (
           skills: pdlResponse.skills || [],
         },
       },
-    });
+    } as SequenceGenerationResponse);
   } catch (error) {
     logger.error("Failed to generate sequence", {
       error: error instanceof Error ? error.message : String(error),

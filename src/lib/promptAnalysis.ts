@@ -333,8 +333,11 @@ export class PromptGenerator {
   /**
    * Generate system prompt for sequence generation
    */
-  static generateSystemPrompt(): string {
-    return `You are an expert sales sequence generator specializing in personalized outreach. Your role is to create highly targeted sales sequences that convert prospects into customers.
+  static generateSystemPrompt(companyContext: string): string {
+    return `You are an expert that will help company achieve their goals, use the company context to understand the company and the goals they want to achieve.
+
+COMPANY CONTEXT:
+${companyContext}
 
 CORE PRINCIPLES:
 - Always personalize based on prospect's role, company, and pain points
@@ -359,8 +362,7 @@ Be specific, actionable, and highly personalized. Ensure all JSON is properly fo
    */
   static generateUserPrompt(
     analysis: ProspectAnalysis,
-    context: SequenceRequestContext,
-    companyContext: string
+    context: SequenceRequestContext
   ): string {
     const toneInstructions = ToneMapper.generateToneInstructions(
       context.tov_config
@@ -394,8 +396,6 @@ ${analysis.objections.map((obj) => `- ${obj}`).join("\n")}
 Skills & Interests:
 ${analysis.interests.map((interest) => `- ${interest}`).join("\n")}
 
-COMPANY CONTEXT:
-${companyContext}
 
 TONE REQUIREMENTS:
 ${toneInstructions}
@@ -421,8 +421,8 @@ Create a sequence that addresses their specific challenges, uses personalized ho
     });
 
     return {
-      systemPrompt: this.generateSystemPrompt(),
-      userPrompt: this.generateUserPrompt(analysis, context, companyContext),
+      systemPrompt: this.generateSystemPrompt(companyContext),
+      userPrompt: this.generateUserPrompt(analysis, context),
     };
   }
 }

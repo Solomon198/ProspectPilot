@@ -7,27 +7,108 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  posts     Post[]
-
-  @@map("users")
+// Prospects: Store LinkedIn profile data
+model Prospect {
+  id                String   @id @default(cuid())
+  linkedinUrl       String   @unique
+  fullName          String?
+  firstName         String?
+  lastName          String?
+  jobTitle          String?
+  jobCompanyName    String?
+  jobCompanyIndustry String?
+  jobCompanySize    String?
+  locationName      String?
+  skills            String[] 
+  experience        Json?    
+  education         Json? 
+  email             String?
+  linkedinUsername  String?
+  
+  // Analysis fields
+  seniority         String?  
+  decisionMaker     Boolean  @default(false)
+  painPoints        String[] 
+  interests         String[] 
+  communicationStyle String?
+  buyingPower       String? 
+  urgency           String? 
+  objections        String[] 
+  hooks             String[] 
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relations
+  message           Message?
+  
+  @@map("prospects")
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// TOV configs: Tone of voice parameters
+model TOVConfig {
+  id          String   @id @default(cuid())
 
-  @@map("posts")
+  tov   Float @unique
+ 
+  formality String
+  warmth String
+  directness String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  
+  @@map("tov_configs")
+}
+
+// Message sequences: Generated messaging campaigns
+model Message {
+  id              String   @id @default(cuid())
+  prospectId      String   @unique
+  companyContext  String
+  
+  // Generated content
+  generatedMessages Json?  
+  aiThinkingProcess Json?  
+  confidenceScores  Json?  
+  prospectAnalysis  Json?  
+  tovConfig       Json?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  prospect        Prospect @relation(fields: [prospectId], references: [id])
+  aiGeneration    AIGeneration?
+  
+  @@map("messages")
+}
+
+model AIGeneration {
+  id              String   @id @default(cuid())
+  messageId      String   @unique
+  modelName       String   
+  operationType   String 
+
+  inputTokens     Int
+  outputTokens    Int
+  totalTokens     Int
+  costPer1kInput  Float
+  costPer1kOutput Float
+  totalCost       Float
+  
+  responseTime    Int     
+  
+  temperature     Float?
+  maxTokens       Int?
+  retryCount      Int      @default(0)
+  
+  createdAt       DateTime @default(now())
+  
+  // Relations
+  message        Message @relation(fields: [messageId], references: [id])
+  
+  @@map("ai_generations")
 }
  
