@@ -344,7 +344,7 @@ CORE PRINCIPLES:
 
 OUTPUT FORMAT:
 Return a valid JSON object with:
-- generatedMessages: Array of message objects with step, subject, body, timing, channel, personalization, callToAction, followUpStrategy
+- generatedMessages: Array of message objects with step, subject, body, timing, channel(linkedin), personalization, callToAction, followUpStrategy
 - aiThinkingProcess: Your analysis and strategy reasoning including prospectAnalysis, strategy, toneMapping, sequenceLogic
 - confidenceScores: Confidence levels (0-1) for prospectAnalysis, valueProposition, personalization, objectionHandling, overallSequence
 - prospectAnalysis: Detailed prospect insights
