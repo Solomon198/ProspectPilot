@@ -101,8 +101,6 @@ model AIGeneration {
   responseTime    Int     
   
   temperature     Float?
-  maxTokens       Int?
-  retryCount      Int      @default(0)
   
   createdAt       DateTime @default(now())
   

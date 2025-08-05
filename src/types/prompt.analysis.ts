@@ -100,3 +100,12 @@ export interface SequenceGenerationOutput {
   confidenceScores: ConfidenceScores;
   prospectAnalysis: ProspectAnalysis;
 }
+
+/**
+ * Database TOV Config type for prompt generation
+ */
+export interface TOVConfigMapping {
+  formality: string;
+  warmth: string;
+  directness: string;
+}

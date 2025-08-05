@@ -3,6 +3,7 @@ import { logger } from "../utils/logger";
 import {
   ProspectAnalysis,
   SequenceRequestContext,
+  TOVConfigMapping,
 } from "../types/prompt.analysis";
 import { ToneMapper } from "../utils/tone.mapper";
 
@@ -362,11 +363,10 @@ Be specific, actionable, and highly personalized. Ensure all JSON is properly fo
    */
   static generateUserPrompt(
     analysis: ProspectAnalysis,
-    context: SequenceRequestContext
+    context: SequenceRequestContext,
+    tovConfig: TOVConfigMapping
   ): string {
-    const toneInstructions = ToneMapper.generateToneInstructions(
-      context.tov_config
-    );
+    const toneInstructions = ToneMapper.generateToneInstructions(tovConfig);
 
     return `Generate a ${
       context.sequence_length
@@ -409,7 +409,8 @@ Create a sequence that addresses their specific challenges, uses personalized ho
   static generatePromptPair(
     profile: PersonResponse,
     context: SequenceRequestContext,
-    companyContext: string
+    companyContext: string,
+    tovConfig: TOVConfigMapping
   ): { systemPrompt: string; userPrompt: string } {
     const analysis = ProspectAnalyzer.analyzeProspect(profile);
 
@@ -422,7 +423,7 @@ Create a sequence that addresses their specific challenges, uses personalized ho
 
     return {
       systemPrompt: this.generateSystemPrompt(companyContext),
-      userPrompt: this.generateUserPrompt(analysis, context),
+      userPrompt: this.generateUserPrompt(analysis, context, tovConfig),
     };
   }
 }
