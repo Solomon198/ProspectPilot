@@ -47,7 +47,10 @@ export async function storeSequenceGeneration(
           jobCompanyName: data.pdlResponse.job_company_name || null,
           jobCompanyIndustry: data.pdlResponse.job_company_industry || null,
           jobCompanySize: data.pdlResponse.job_company_size || null,
-          locationName: data.pdlResponse.location_name as string,
+          locationName:
+            typeof data.pdlResponse.location_name === "string"
+              ? data.pdlResponse.location_name
+              : null,
           skills: data.pdlResponse.skills || [],
           experience: data.pdlResponse.experience
             ? JSON.parse(JSON.stringify(data.pdlResponse.experience))
@@ -60,17 +63,37 @@ export async function storeSequenceGeneration(
             : null,
           linkedinUsername: data.pdlResponse.linkedin_username || null,
           // Analysis fields from AI
-          seniority: data.parsedResponse.prospectAnalysis?.seniority,
+          seniority: data.parsedResponse.prospectAnalysis?.seniority || null,
           decisionMaker:
-            data.parsedResponse.prospectAnalysis?.decisionMaker || false,
-          painPoints: data.parsedResponse.prospectAnalysis?.painPoints || [],
-          interests: data.parsedResponse.prospectAnalysis?.interests || [],
+            data.parsedResponse.prospectAnalysis?.decisionMaker === "Yes" ||
+            data.parsedResponse.prospectAnalysis?.decisionMaker === true ||
+            false,
+          painPoints: Array.isArray(
+            data.parsedResponse.prospectAnalysis?.painPoints
+          )
+            ? data.parsedResponse.prospectAnalysis.painPoints
+            : typeof data.parsedResponse.prospectAnalysis?.painPoints ===
+              "string"
+            ? [data.parsedResponse.prospectAnalysis.painPoints]
+            : [],
+          interests: Array.isArray(
+            data.parsedResponse.prospectAnalysis?.interests
+          )
+            ? data.parsedResponse.prospectAnalysis.interests
+            : [],
           communicationStyle:
-            data.parsedResponse.prospectAnalysis?.communicationStyle,
-          buyingPower: data.parsedResponse.prospectAnalysis?.buyingPower,
-          urgency: data.parsedResponse.prospectAnalysis?.urgency,
-          objections: data.parsedResponse.prospectAnalysis?.objections || [],
-          hooks: data.parsedResponse.prospectAnalysis?.hooks || [],
+            data.parsedResponse.prospectAnalysis?.communicationStyle || null,
+          buyingPower:
+            data.parsedResponse.prospectAnalysis?.buyingPower || null,
+          urgency: data.parsedResponse.prospectAnalysis?.urgency || null,
+          objections: Array.isArray(
+            data.parsedResponse.prospectAnalysis?.objections
+          )
+            ? data.parsedResponse.prospectAnalysis.objections
+            : [],
+          hooks: Array.isArray(data.parsedResponse.prospectAnalysis?.hooks)
+            ? data.parsedResponse.prospectAnalysis.hooks
+            : [],
         },
       });
 
@@ -83,7 +106,7 @@ export async function storeSequenceGeneration(
           aiThinkingProcess: data.parsedResponse.aiThinkingProcess || {},
           confidenceScores: data.parsedResponse.confidenceScores || {},
           prospectAnalysis: data.parsedResponse.prospectAnalysis || {},
-          tovConfig: data.tovConfig,
+          tovConfig: JSON.parse(JSON.stringify(data.tovConfig)),
         },
       });
 
